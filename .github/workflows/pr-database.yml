@@ -31,3 +31,10 @@ jobs:
       - run: npx prisma db push --preview-feature
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
+
+      - run: npx prisma studio &
+
+      - uses: apogiatzis/ngrok-tunneling-action
+        with:
+          timeout: 1h
+          port: 5555
