@@ -1,0 +1,30 @@
+name: Database for PR
+on:
+  push:
+
+jobs:
+  migrate-db:
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+
+      - run: echo "Your PR is ${PR}"
+        if: success() && steps.findPr.outputs.number
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
+
+      - name: manipulate DATABASE_URL
+        id: manipulateUrl
+        run: |
+          echo ::set-output name=url::"${DATABASE_URL/defaultdb/${{ steps.findPr.outputs.pr }}}"
+
+      - run: echo $DATABASE_URL
+        env:
+          DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
+
+      - run: npx prisma db push
+        env:
+          DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
