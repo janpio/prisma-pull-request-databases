@@ -34,7 +34,7 @@ jobs:
 
       - run: npx prisma studio &
 
-      - uses: apogiatzis/ngrok-tunneling-action
+      - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
         with:
           timeout: 1h
           port: 5555
