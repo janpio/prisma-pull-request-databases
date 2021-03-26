@@ -21,7 +21,9 @@ jobs:
         id: manipulateUrl
         run: |
           echo ::set-output name=url::"${DATABASE_URL/defaultdb/${{ steps.findPr.outputs.pr }}}"
-
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          
       - run: echo $DATABASE_URL
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
