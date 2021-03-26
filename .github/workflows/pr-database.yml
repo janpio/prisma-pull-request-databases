@@ -28,14 +28,14 @@ jobs:
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
 
-      - run: npx prisma db push --preview-feature
+      - run: npx prisma db push --skip-generate --preview-feature
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
 
       - run: npx prisma studio &
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
-          
+
       - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
         with:
           timeout: 1h
