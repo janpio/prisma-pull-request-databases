@@ -4,7 +4,8 @@ on:
 
 jobs:
   migrate-db:
-
+    runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v1
 
