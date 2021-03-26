@@ -44,17 +44,6 @@ jobs:
         shell: bash
       - run: |
           timeout 1h ./ngrok http 5555 --log ".ngrok.log" &
-
           sleep 10
-          HAS_ERRORS=$(grep "command failed" < .ngrok.log)
-
-          if [[ -z "$HAS_ERRORS" ]]; then
-            echo ""
-            echo "=========================================="
-            echo "$(cat .ngrok.log)"
-            echo "=========================================="
-          else
-            echo "$HAS_ERRORS"
-            exit 4
-          fi
+          cat .ngrok.log
         shell: bash
