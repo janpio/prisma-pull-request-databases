@@ -33,7 +33,9 @@ jobs:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
 
       - run: npx prisma studio &
-
+        env:
+          DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
+          
       - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
         with:
           timeout: 1h
