@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/janpio/prisma-pull-request-databases#readme",
   "dependencies": {
+    "@prisma/client": "^2.19.0"
+  },
+  "devDependencies": {
     "prisma": "^2.19.0"
   }
 }
