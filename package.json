@@ -1,0 +1,23 @@
+{
+  "name": "prisma-pull-request-databases",
+  "version": "1.0.0",
+  "description": "A repository that creates a unique database for each PR with its Prisma Schema.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janpio/prisma-pull-request-databases.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janpio/prisma-pull-request-databases/issues"
+  },
+  "homepage": "https://github.com/janpio/prisma-pull-request-databases#readme",
+  "dependencies": {
+    "prisma": "^2.19.0"
+  }
+}
