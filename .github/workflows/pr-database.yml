@@ -5,7 +5,7 @@ on:
 jobs:
   migrate-db:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v1
 
@@ -26,6 +26,6 @@ jobs:
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
 
-      - run: npx prisma db push
+      - run: npx prisma db push --preview-feature
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
