@@ -17,7 +17,7 @@ jobs:
       - name: get or manipulate database url
         id: manipulateUrl
         run: |
-          if [[ ${{ steps.findPr.outputs.pr }} ]]; then
+          if [[ $(${{ steps.findPr.outputs.pr }}) ]]; then
             echo ::set-output name=url::"${DATABASE_URL/defaultdb/${{ steps.findPr.outputs.pr }}}"
           elif [[ ${GITHUB_REF#refs/heads/} == "main" ]]; then
             echo ::set-output name=url::"$DATABASE_URL"
