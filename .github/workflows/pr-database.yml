@@ -14,13 +14,20 @@ jobs:
       - run: echo "Your PR is ${{ steps.findPr.outputs.pr }}"
         if: success() && steps.findPr.outputs.number
 
-
-      - name: manipulate DATABASE_URL
+      - name: get or manipulate database url
         id: manipulateUrl
         run: |
-          echo ::set-output name=url::"${DATABASE_URL/defaultdb/${{ steps.findPr.outputs.pr }}}"
+          if [[ ${{ steps.findPr.outputs.pr }} ]]; then
+            echo ::set-output name=url::"${DATABASE_URL/defaultdb/${{ steps.findPr.outputs.pr }}}"
+          elif [[ ${GITHUB_REF#refs/heads/} == "main" ]]; then
+            echo ::set-output name=url::"$DATABASE_URL"
+          else
+            echo "not in PR or main branch"
+            exit 1
+          fi
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          
       - run: echo $DATABASE_URL
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
