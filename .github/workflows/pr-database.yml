@@ -11,11 +11,9 @@ jobs:
 
       - uses: jwalton/gh-find-current-pr@v1
         id: findPr
-
-      - run: echo "Your PR is ${PR}"
+      - run: echo "Your PR is ${{ steps.findPr.outputs.pr }}"
         if: success() && steps.findPr.outputs.number
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
+
 
       - name: manipulate DATABASE_URL
         id: manipulateUrl
@@ -23,7 +21,6 @@ jobs:
           echo ::set-output name=url::"${DATABASE_URL/defaultdb/${{ steps.findPr.outputs.pr }}}"
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          
       - run: echo $DATABASE_URL
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
@@ -32,6 +29,7 @@ jobs:
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
 
+      
       - run: npx prisma studio &
         env:
           DATABASE_URL: ${{ steps.manipulateUrl.outputs.url }}
